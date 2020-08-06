@@ -1,0 +1,44 @@
+<html>
+
+<head>
+  <title>Express</title>
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+  <script src="./javascripts/esrimap.js"></script>
+  <script src="https://js.arcgis.com/4.16/"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.5.5/js/uikit.min.js" integrity="sha512-srvJmL1wm+80U9x41PalocxB74gnnULZsIbTevLIgktG9ReyB37Nvr5LPQtPlNyESy1qAUD6wELrRRJMMmIzRA==" crossorigin="anonymous"></script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.5.5/css/uikit-core.min.css" integrity="sha512-9kG8bA1swcSxAiNKPk3FQXGc55ugWsTIleWFox7Wp5sjEeAxEvmHd5vbCpHlBAe5MoIO/2OjLgHvRmXTeeOxUQ==" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://js.arcgis.com/4.16/esri/themes/light/main.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+  <div class="uk-grid">
+    <div class="uk-width-1-3">
+      <h1>CA Fire Tracker</h1>
+    </div>
+    <div class="uk-width-1-3 uk-text-center">
+      <div class="uk-grid">
+        <div id="overview-acres" class="uk-width-1-3 uk-text-center">
+
+        </div>
+        <div id="overview-incidents" class="uk-width-1-3 uk-text-center">
+
+        </div>
+        <div id="overview-fatalities" class="uk-width-1-3 uk-text-center">
+
+        </div>
+        <div id="overview-structures" class="uk-width-1-3 uk-text-center">
+
+        </div>
+        
+      </div>
+    </div>
+    <div class="uk-width-1-3 uk-text-right">
+      <p>Some other info</p>
+    </div>
+  </div>
+  <div id="viewDiv"></div>
+</body>
+
+</html>
