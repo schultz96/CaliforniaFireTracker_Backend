@@ -1,28 +1,49 @@
 $(document).ready(() => {
-  require(["esri/Map", "esri/views/MapView", "esri/layers/KMLLayer", "esri/widgets/ScaleBar"], function (Map, MapView, KMLLayer, ScaleBar) {
+  require(["esri/Map", "esri/views/MapView", "esri/layers/KMLLayer", "esri/layers/GeoJSONLayer", "esri/widgets/ScaleBar", "esri/layers/FeatureLayer"], function (Map, MapView, KMLLayer, GeoJSONLayer, ScaleBar, FeatureLayer) {
 
-    var layer = new KMLLayer({
-      // major earthquakes for latest 30 days from USGS
-      url: "https://earthquake.usgs.gov/fdsnws/event/1/query?format=kml&minmagnitude=5.8"
+    // Active fires
+    var geojsonLayer = new GeoJSONLayer({
+      url: "https://opendata.arcgis.com/datasets/5da472c6d27b4b67970acc7b5044c862_0.geojson"
+    });
+
+    // Incidents
+    var incidentLayer = new GeoJSONLayer({
+      url: "https://opendata.arcgis.com/datasets/68637d248eb24d0d853342cba02d4af7_0.geojson",
+      renderer: {
+        type: "simple",
+        symbol: {
+          type: "simple-marker",
+          size: 5,
+          color: "blue",
+          outline: {
+            width: 0.5,
+            color: "black"
+          }
+        }
+      }
+    });
+
+    // Responding locations
+    var responseLayer = new FeatureLayer({
+      url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/FeatureServer/2"
     });
 
     var map = new Map({
       basemap: "topo-vector",
-      layers: [layer]
+      layers: [geojsonLayer, incidentLayer, responseLayer]
     });
 
     var view = new MapView({
       container: "viewDiv",
       map: map,
-      center: [-118.805, 34.027], // longitude, latitude
-      zoom: 13
+      center: [-120.063339, 37.305869], // longitude, latitude 37.305869, -120.063339
+      zoom: 7
     });
-
-    
 
     var scalebar = new ScaleBar({
       view: view
     });
+
     view.ui.add(scalebar, "bottom-left");
   });
 })
