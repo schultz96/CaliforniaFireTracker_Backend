@@ -16,9 +16,23 @@ a {
   color: #00B7FF;
 }
 
+.menu {
+  width: 25%;
+  display: inline-flex;
+}
+
+.map-container {
+  height: 80vh;
+  display: inline-block;
+} 
+
 #viewDiv {
   padding: 0;
   margin: 0;
   height: 90%;
   width: 100%;
+}
+
+.toggle {
+  color: #f8f8ff;
 }
