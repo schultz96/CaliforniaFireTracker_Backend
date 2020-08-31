@@ -1,6 +1,7 @@
 var app = require('./app');
 var debug = require('debug')('californiafiretracker:server');
 var http = require('http');
+var db = require('./db/db');
 
 /**
 * Get port from environment and store in Express.
