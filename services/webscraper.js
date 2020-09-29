@@ -1,7 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const mongoose = require('mongoose');
-const Overview = require('../../db/models/overview');
+const Overview = require('../db/models/overview');
 
 // temporary to test scraping
 try {
