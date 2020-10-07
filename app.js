@@ -6,9 +6,9 @@ var updateLayerData = require('./services/updateLayerData');
 var webscraper = require('./services/webscraper');
 var cron = require('node-cron');
 
-console.log('cron job scheduled for 4:00am')
-// running every day at 4:00am
-cron.schedule('5 * * * *', () => {
+console.log('cron job scheduled for every 4 hours')
+// running every 4 hours
+cron.schedule('0 */4 * * *', () => {
   console.log('running cron job');
   updateLayerData();
 });
