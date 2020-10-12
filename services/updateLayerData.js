@@ -10,8 +10,11 @@ const updateLayerData = () => {
             responseType: 'stream'
         })
             .then(function (response) {
-                response.data.pipe(fs.createWriteStream('./public/data/wildfire.geojson'))
-                console.log('Saved wildfire layer file.')
+                response.data
+                    .pipe(fs.createWriteStream('./public/data/wildfire.geojson'))
+                    .on('close', () => {
+                        console.log('Finished saving wildfire layer file.');
+                    })
             });
     }
     catch (err) {
@@ -25,10 +28,13 @@ const updateLayerData = () => {
             url: 'https://opendata.arcgis.com/datasets/68637d248eb24d0d853342cba02d4af7_0.geojson',
             responseType: 'stream'
         })
-            .then(function (response) {
-                response.data.pipe(fs.createWriteStream('./public/data/incidents.geojson'))
-                console.log('Saved incident layer file.')
-            });
+        .then(function (response) {
+            response.data
+                .pipe(fs.createWriteStream('./public/data/incidents.geojson'))
+                .on('close', () => {
+                    console.log('Finished saving incident layer file.');
+                })
+        });
     }
     catch (err) {
         console.log('ERROR fetching or writing latest incident layer data.');
@@ -49,13 +55,56 @@ const updateLayerData = () => {
             }
         })
             .then(function (response) {
-                response.data.pipe(fs.createWriteStream('./public/data/response.json'))
-                console.log('Saved response layer file.')
+                response.data
+                    .pipe(fs.createWriteStream('./public/data/response.json'))
+                    .on('close', () => {
+                        console.log('Finished saving response layer file.');
+                    })
+                
             });
     }
     catch (err) {
         console.log('ERROR fetching / writing latest response layer data.');
         console.log(err)
+    }
+
+    try {
+        axios({
+            method: 'get',
+            url: 'https://opendata.arcgis.com/datasets/31219c833eb54598ba83d09fa0adb346_0.geojson',
+            responseType: 'stream'
+        })
+        .then(function (response) {
+            response.data
+                .pipe(fs.createWriteStream('./public/data/hazard-areas.geojson'))
+                .on('close', () => {
+                    console.log('Finished saving hazard layer file.');
+
+                    const hazardsJSON = JSON.parse(fs.readFileSync('./public/data/hazard-areas.geojson'));
+                    console.log(hazardsJSON.features[12].properties);
+                    // for (let i in hazardsJSON.features) {
+                    //     if (hazardsJSON.features[i].properties.OBJECTID === null) hazardsJSON.features[i].properties.OBJECTID == (Math.floor(Math.random() * 1000) + 1)
+                    //     // console.log(hazardsJSON.features[i].properties.OBJECTID ? hazardsJSON.features[i].properties.OBJECTID : '')
+                    //     if (i == hazardsJSON.features.length - 1) {
+                    //         console.log('LAST TURN!')
+                    //     }
+                    // }
+                    
+                    fs.writeFile('./public/data/hazard-areas.geojson', JSON.stringify(hazardsJSON), (err) => {
+                        if (err) console.log(err);
+                        console.log('wrote new hazards file with no null IDs');
+                    });
+                    
+                })
+        })
+        // const hazardsJSON = JSON.parse(fs.readFileSync('./public/data/hazard-areas.geojson'));
+        // for (let i in hazardsJSON) {
+        //     if (hazardsJSON[i].OBJECTID == null) console.log('null objectid')
+        // }
+        // console.log(hazardsJSON);
+    }
+    catch (err) {
+        console.log('ERROR fetching or writing latest hazard layer data.');
     }
 }
 
