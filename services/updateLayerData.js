@@ -79,16 +79,13 @@ const updateLayerData = () => {
                 .pipe(fs.createWriteStream('./public/data/hazard-areas.geojson'))
                 .on('close', () => {
                     console.log('Finished saving hazard layer file.');
-
                     const hazardsJSON = JSON.parse(fs.readFileSync('./public/data/hazard-areas.geojson'));
-                    console.log(hazardsJSON.features[12].properties);
-                    // for (let i in hazardsJSON.features) {
-                    //     if (hazardsJSON.features[i].properties.OBJECTID === null) hazardsJSON.features[i].properties.OBJECTID == (Math.floor(Math.random() * 1000) + 1)
-                    //     // console.log(hazardsJSON.features[i].properties.OBJECTID ? hazardsJSON.features[i].properties.OBJECTID : '')
-                    //     if (i == hazardsJSON.features.length - 1) {
-                    //         console.log('LAST TURN!')
-                    //     }
-                    // }
+                    
+                    for (let i in hazardsJSON.features) {
+                        if (hazardsJSON.features[i].properties.OBJECTID == null) {
+                            hazardsJSON.features[i].properties.OBJECTID = Math.floor(Math.random() * 10000) + 1
+                        }
+                    }
                     
                     fs.writeFile('./public/data/hazard-areas.geojson', JSON.stringify(hazardsJSON), (err) => {
                         if (err) console.log(err);
