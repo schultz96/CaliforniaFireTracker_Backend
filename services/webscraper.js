@@ -4,17 +4,17 @@ const mongoose = require('mongoose');
 const Overview = require('../db/models/overview');
 
 // temporary to test scraping
-try {
-  scrapeFireCAGov();
-}
-catch (err) {
-  console.log(err);
-}
+// try {
+//   scrapeFireCAGov();
+// }
+// catch (err) {
+//   console.log(err);
+// }
 
 // scrapes site every 4 hours
-// setInterval(() => {
-//   scrapeFireCAGov();
-// }, 14400000)
+setInterval(() => {
+  scrapeFireCAGov();
+}, 14400000)
 
 async function scrapeFireCAGov() {
   const html = await axios.get('https://www.fire.ca.gov/incidents');

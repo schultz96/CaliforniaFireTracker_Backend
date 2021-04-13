@@ -56,7 +56,7 @@ const updateLayerData = () => {
         })
             .then(function (response) {
                 response.data
-                    .pipe(fs.createWriteStream('./public/data/response.json'))
+                    .pipe(fs.createWriteStream('./public/data/response.geojson'))
                     .on('close', () => {
                         console.log('Finished saving response layer file.');
                     })
