@@ -6,7 +6,7 @@ const updateLayerData = () => {
     try {
         axios({
             method: 'get',
-            url: 'https://opendata.arcgis.com/datasets/5da472c6d27b4b67970acc7b5044c862_0.geojson',
+            url: 'https://opendata.arcgis.com/datasets/f72ebe741e3b4f0db376b4e765728339_0.geojson',
             responseType: 'stream'
         })
             .then(function (response) {
@@ -60,7 +60,7 @@ const updateLayerData = () => {
                     .on('close', () => {
                         console.log('Finished saving response layer file.');
                     })
-                
+
             });
     }
     catch (err) {
@@ -80,18 +80,18 @@ const updateLayerData = () => {
                 .on('close', () => {
                     console.log('Finished saving hazard layer file.');
                     const hazardsJSON = JSON.parse(fs.readFileSync('./public/data/hazard-areas.geojson'));
-                    
+
                     for (let i in hazardsJSON.features) {
                         if (hazardsJSON.features[i].properties.OBJECTID == null) {
                             hazardsJSON.features[i].properties.OBJECTID = Math.floor(Math.random() * 10000) + 1
                         }
                     }
-                    
+
                     fs.writeFile('./public/data/hazard-areas.geojson', JSON.stringify(hazardsJSON), (err) => {
                         if (err) console.log(err);
                         console.log('wrote new hazards file with no null IDs');
                     });
-                    
+
                 })
         })
         // const hazardsJSON = JSON.parse(fs.readFileSync('./public/data/hazard-areas.geojson'));
